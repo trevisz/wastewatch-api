@@ -1,0 +1,329 @@
+{
+  "info": {
+    "name": "WasteWatch API",
+    "_postman_id": "f7a5f6c6-7e2d-4f4c-a8d8-ww-postman-collection",
+    "description": "Coleção Postman para a API WasteWatch (Gestão de Resíduos). Inclui autenticação Basic, rotas públicas, USER e ADMIN.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Collection Points (USER/ADMIN)",
+      "item": [
+        {
+          "name": "Listar Pontos (GET)",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "user"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collection-points",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collection-points"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar Ponto por ID (GET)",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "user"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collection-points/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collection-points",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Criar Ponto (POST) [ADMIN]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ponto Central\",\n  \"location\": \"Av. Paulista, 1000\",\n  \"capacityKg\": 100.0,\n  \"currentLevelKg\": 30.0,\n  \"thresholdPercent\": 75\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collection-points",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collection-points"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Ponto (PUT) [ADMIN]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ponto Central - Atualizado\",\n  \"location\": \"Av. Paulista, 1000 - Bloco B\",\n  \"capacityKg\": 120.0,\n  \"currentLevelKg\": 90.0,\n  \"thresholdPercent\": 80\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collection-points/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collection-points",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Excluir Ponto (DELETE) [ADMIN]",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/collection-points/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "collection-points",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pickups / Coletas",
+      "item": [
+        {
+          "name": "Listar Coletas (GET)",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "user"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/pickups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pickups"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Agendar Coleta (POST) [ADMIN]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"collectionPointId\": 1,\n  \"scheduledAt\": \"2025-11-06T02:41:22Z\",\n  \"notes\": \"Coleta programada via Postman\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/pickups/schedule",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pickups",
+                "schedule"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Concluir Coleta (PUT) [ADMIN]",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/pickups/1/complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pickups",
+                "1",
+                "complete"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alerts (USER/ADMIN)",
+      "item": [
+        {
+          "name": "Listar Alertas (GET)",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "user"
+                },
+                {
+                  "key": "password",
+                  "value": "[REDACTED]"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "alerts"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
