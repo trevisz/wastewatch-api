@@ -31,15 +31,16 @@ API RESTful desenvolvida em **Spring Boot** para **gestão inteligente de resíd
 
 A API usa **Spring Security** com autenticação **Basic Auth** (usuário/senha).  
 
-### Usuários padrão:
+### Contas locais de desenvolvimento
 
-| Usuário | Senha | Permissão |
-|----------|--------|------------|
-| `admin` | `[REDACTED]` | ADMIN, USER |
-| `user` | `[REDACTED]` | USER |
+A API cria as contas `admin` e `user` com as permissões abaixo. Defina senhas próprias em `WASTE_ADMIN_PASSWORD` e `WASTE_USER_PASSWORD` no arquivo local `.env`; não há senhas padrão no código.
 
-Use esses usuários no **Postman** em:  
-**Authorization → Basic Auth**
+| Usuário | Variável de senha | Permissão |
+|----------|-------------------|------------|
+| `admin` | `WASTE_ADMIN_PASSWORD` | ADMIN, USER |
+| `user` | `WASTE_USER_PASSWORD` | USER |
+
+No **Postman**, use **Authorization → Basic Auth** com o nome da conta e a senha configurada no seu `.env`.
 
 ---
 
@@ -77,37 +78,21 @@ EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app/app.jar"]
 ```
 
-### **docker-compose.yml**
+### **Configuração local**
 
-```yaml
-version: "3.9"
-services:
-  oracle:
-    image: gvenzl/oracle-xe:21-slim
-    environment:
-      - ORACLE_PASSWORD=[REDACTED]
-      - APP_USER=WASTE
-      - APP_USER_PASSWORD=[REDACTED]
-    ports:
-      - "1521:1521"
-    healthcheck:
-      test: ["CMD-SHELL", "echo 'select 1 from dual;' | sqlplus -s system/[REDACTED]@localhost:1521/FREEPDB1 | grep 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+O `docker-compose.yml` lê as senhas do arquivo local `.env`, que não deve ser publicado. Crie-o a partir do exemplo e substitua os valores de exemplo por senhas fortes antes de iniciar:
 
-  app:
-    build: .
-    depends_on:
-      oracle:
-        condition: service_healthy
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@//oracle:1521/FREEPDB1
-      - SPRING_DATASOURCE_USERNAME=WASTE
-      - SPRING_DATASOURCE_PASSWORD=[REDACTED]
-    ports:
-      - "8080:8080"
+**Windows PowerShell:**
+```powershell
+Copy-Item .env.example .env
 ```
+
+**Linux/macOS:**
+```bash
+cp .env.example .env
+```
+
+O `.env.example` documenta as variáveis necessárias; o `.gitignore` exclui o `.env` local e os artefatos gerados em `target/`.
 
 ### **Comandos**
 
@@ -140,9 +125,7 @@ http://localhost:8080/api/collection-points
 
 1. Importe o arquivo `WasteWatch.postman_collection.json`
 2. Use o ambiente `localhost:8080`
-3. Faça login com:
-   - user/[REDACTED] → para testar listagens
-   - admin/[REDACTED] → para cadastrar/editar/excluir
+3. Faça login com `user` e a senha definida em `WASTE_USER_PASSWORD` para testar listagens, ou com `admin` e a senha definida em `WASTE_ADMIN_PASSWORD` para cadastrar/editar/excluir.
 4. Teste os seguintes endpoints:
    - `GET /api/collection-points`
    - `POST /api/collection-points`
