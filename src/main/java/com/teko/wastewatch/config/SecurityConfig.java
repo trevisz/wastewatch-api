@@ -1,5 +1,6 @@
 package com.teko.wastewatch.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -30,18 +31,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService users(PasswordEncoder encoder) {
+    public UserDetailsService users(
+            PasswordEncoder encoder,
+            @Value("${wastewatch.security.admin-password}") String adminPassword,
+            @Value("${wastewatch.security.user-password}") String userPassword) {
         UserDetails admin = User.withUsername("admin")
-                .password(encoder.encode("[REDACTED]"))
+                .password(encoder.encode(adminPassword))
                 .roles("ADMIN","USER")
                 .build();
         UserDetails user = User.withUsername("user")
-                .password(encoder.encode("[REDACTED]"))
+                .password(encoder.encode(userPassword))
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(admin, user);
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
