@@ -3,13 +3,13 @@ services:
     image: gvenzl/oracle-xe:21-slim
     container_name: wastewatch-oracle
     environment:
-      ORACLE_PASSWORD: [REDACTED]
+      ORACLE_PASSWORD: ${ORACLE_SYSTEM_PASSWORD:?Set ORACLE_SYSTEM_PASSWORD in .env}
       APP_USER: WASTE
-      APP_USER_PASSWORD: [REDACTED]
+      APP_USER_PASSWORD: ${WASTE_DB_PASSWORD:?Set WASTE_DB_PASSWORD in .env}
     ports:
       - "1521:1521"
     healthcheck:
-      test: ["CMD-SHELL", "echo 'select 1 from dual;' | sqlplus -s system/[REDACTED]@localhost:1521/XEPDB1 | grep 1 || exit 1"]
+      test: ["CMD-SHELL", "echo 'select 1 from dual;' | sqlplus -s system/$${ORACLE_PASSWORD}@localhost:1521/XEPDB1 | grep 1 || exit 1"]
       interval: 20s
       timeout: 10s
       retries: 30
@@ -22,11 +22,11 @@ services:
       oracle:
         condition: service_healthy
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@//wastewatch-oracle:1521/XEPDB1
-      - SPRING_DATASOURCE_USERNAME=WASTE
-      - SPRING_DATASOURCE_PASSWORD=[REDACTED]
-    entrypoint: ["sh","-c","sleep 60; java -jar /app/app.jar"]
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//wastewatch-oracle:1521/XEPDB1
+      SPRING_DATASOURCE_USERNAME: WASTE
+      SPRING_DATASOURCE_PASSWORD: ${WASTE_DB_PASSWORD:?Set WASTE_DB_PASSWORD in .env}
+      WASTE_ADMIN_PASSWORD: ${WASTE_ADMIN_PASSWORD:?Set WASTE_ADMIN_PASSWORD in .env}
+      WASTE_USER_PASSWORD: ${WASTE_USER_PASSWORD:?Set WASTE_USER_PASSWORD in .env}
+    entrypoint: ["sh", "-c", "sleep 60; java -jar /app/app.jar"]
     ports:
       - "8080:8080"
-
-
