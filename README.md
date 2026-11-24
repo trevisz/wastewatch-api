@@ -40,7 +40,7 @@ A API cria as contas `admin` e `user` com as permissões abaixo. Defina senhas p
 | `admin` | `WASTE_ADMIN_PASSWORD` | ADMIN, USER |
 | `user` | `WASTE_USER_PASSWORD` | USER |
 
-No **Postman**, use **Authorization → Basic Auth** com o nome da conta e a senha configurada no seu `.env`.
+No **Postman**, use **Authorization → Basic Auth**. Configure as variáveis de coleção `WASTE_ADMIN_PASSWORD` e `WASTE_USER_PASSWORD` com os valores correspondentes do seu `.env`.
 
 ---
 
