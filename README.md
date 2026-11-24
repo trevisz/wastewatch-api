@@ -80,7 +80,7 @@ ENTRYPOINT ["java","-jar","/app/app.jar"]
 
 ### **Configuração local**
 
-O `docker-compose.yml` lê as senhas do arquivo local `.env`, que não deve ser publicado. Crie-o a partir do exemplo e substitua os valores de exemplo por senhas fortes antes de iniciar:
+O `docker-compose.yml` lê as senhas do arquivo local `.env`, que não deve ser publicado. Crie-o a partir do exemplo e preencha cada variável com uma senha forte antes de iniciar:
 
 **Windows PowerShell:**
 ```powershell
