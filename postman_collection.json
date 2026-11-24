@@ -22,7 +22,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_USER_PASSWORD}}"
                 }
               ]
             },
@@ -51,7 +51,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_USER_PASSWORD}}"
                 }
               ]
             },
@@ -87,7 +87,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_ADMIN_PASSWORD}}"
                 }
               ]
             },
@@ -126,7 +126,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_ADMIN_PASSWORD}}"
                 }
               ]
             },
@@ -160,7 +160,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_ADMIN_PASSWORD}}"
                 }
               ]
             },
@@ -195,7 +195,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_USER_PASSWORD}}"
                 }
               ]
             },
@@ -230,7 +230,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_ADMIN_PASSWORD}}"
                 }
               ]
             },
@@ -264,7 +264,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_ADMIN_PASSWORD}}"
                 }
               ]
             },
@@ -300,7 +300,7 @@
                 },
                 {
                   "key": "password",
-                  "value": "[REDACTED]"
+                  "value": "{{WASTE_USER_PASSWORD}}"
                 }
               ]
             },
@@ -324,6 +324,14 @@
     {
       "key": "baseUrl",
       "value": "http://localhost:8080"
+    },
+    {
+      "key": "WASTE_ADMIN_PASSWORD",
+      "value": ""
+    },
+    {
+      "key": "WASTE_USER_PASSWORD",
+      "value": ""
     }
   ]
 }
